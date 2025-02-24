@@ -9,16 +9,24 @@ if(isset($_POST['cadastrar'])){
     $cpf = $_POST['cpf'];
     $email = $_POST['email'];
 
-    $cliente = new Cliente();
-    $cliente->nome = $nome;
-    $cliente->cpf = $cpf;
-    $cliente->email = $email;
-    $result = $cliente->cadastrar();
-    if($result){
-        echo '<script> alert("Cliente cadastrado com sucesso!!") </script>';
-    }else{
-        echo 'Error';
-    }
+    // print_r($_FILES);
+    $arquivo = $_FILES['foto'];
+    if ($arquivo['error']) die("Falha ao enviar a foto");
+    $pasta = './upload/';
+    $nome_foto = $arquivo['name'];
+
+    echo $nome_foto;
+
+    // $cliente = new Cliente();
+    // $cliente->nome = $nome;
+    // $cliente->cpf = $cpf;
+    // $cliente->email = $email;
+    // $result = $cliente->cadastrar();
+    // if($result){
+    //     echo '<script> alert("Cliente cadastrado com sucesso!!") </script>';
+    // }else{
+    //     echo 'Error';
+    // }
 }
 
 ?>
@@ -37,6 +45,8 @@ if(isset($_POST['cadastrar'])){
         <input type="text" name="cpf" id="cpf"  placeholder="Digite seu CPF">
         <br>
         <input type="text" name="email" id="email"  placeholder="Digite seu e-mail">
+        <br>
+        <input type="file" name="foto" id="foto">
         <br>
         <input type="submit" name="cadastrar" value="Cadastrar">
         <br>
