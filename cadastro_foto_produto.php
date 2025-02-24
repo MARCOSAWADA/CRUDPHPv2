@@ -1,13 +1,14 @@
 <?php
-require './Entity/Cliente.php';
+require './Entity/Produto.php';
 
-$dados = new Cliente();
-$clientes_banco = $dados->buscar();
+$dados = new Produto();
+$produtos_banco = $dados->buscar();
 
 if(isset($_POST['cadastrar'])){
     $nome = $_POST['nome'];
-    $cpf = $_POST['cpf'];
-    $email = $_POST['email'];
+    $descricao = $_POST['descricao'];
+    $quantidade = $_POST['quantidade'];
+    $preco_unid = $_POST['preço'];
 
 
     // ____CÓDIGO PARA CADASTRAR FOTOS NO SERVIDOR BANCO DE DADOS___________
@@ -44,28 +45,29 @@ if(isset($_POST['cadastrar'])){
 
     // ______________________________________________________________________
 
-    // $arquivo = $_FILES['foto'];
-    // if ($arquivo['error']) die("Falha ao enviar a foto");
-    // $pasta = './upload/';
-    // $nome_foto = $arquivo['name'];
-    // $novo_nome = uniqid();
+    $arquivo = $_FILES['foto'];
+    if ($arquivo['error']) die("Falha ao enviar a foto");
+    $pasta = './upload/';
+    $nome_foto = $arquivo['name'];
+    $novo_nome = uniqid();
 
-    // $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
-    // if ($extensao != 'png' && $extensao != 'jpg') die("Falha ao enviar a foto");
-    // $caminho = $pasta . $novo_nome . '.' . $extensao;
-    // $foto = move_uploaded_file($arquivo['tmp_name'], $caminho);
+    $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
+    if ($extensao != 'png' && $extensao != 'jpg') die("Falha ao enviar a foto");
+    $caminho = $pasta . $novo_nome . '.' . $extensao;
+    $foto = move_uploaded_file($arquivo['tmp_name'], $caminho);
 
 
     // _________________________________________________________________________
 
-    $cliente = new Cliente();
-    $cliente->nome = $nome;
-    $cliente->cpf = $cpf;
-    $cliente->email = $email;
-        $cliente->foto = $caminho;
-    $result = $cliente->cadastrar();
+    $produto = new Produto();
+    $produto->nome = $nome;
+    $produto->descricao = $descricao;
+    $produto->quantidade = $quantidade;
+    $produto->preco_unid = $preco_unid;
+        $produto->foto = $caminho;
+    $result = $produto->cadastrar();
     if($result){
-        echo '<script> alert("Cliente cadastrado com sucesso!!") </script>';
+        echo '<script> alert("Produto cadastrado com sucesso!!") </script>';
     }else{
         echo 'Error';
     }
@@ -77,7 +79,7 @@ if(isset($_POST['cadastrar'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PrOdUtOs</title>
     <style>
         #foto_perfil{
             width: 50%;
@@ -86,41 +88,45 @@ if(isset($_POST['cadastrar'])){
     </style>
 </head>
 <body>
-    <h1> Cadastrar Cliente </h1>
+    <h1> Cadastrar Produto </h1>
     <form method="POST" enctype="multipart/form-data">
-        <input type="text" name="nome" id="nome" placeholder="Digite seu nome">
+        <input type="text" name="nome" id="nome" placeholder="Digite o nome do produto">
         <br>
-        <input type="text" name="cpf" id="cpf"  placeholder="Digite seu CPF">
+        <input type="text" name="descricao" id="descricao"  placeholder="Digite a descrição do produto">
         <br>
-        <input type="text" name="email" id="email"  placeholder="Digite seu e-mail">
+        <input type="text" name="quantidade" id="quantidade"  placeholder="Digite a quantidade">
+        <br>
+        <input type="text" name="preco_unid" id="preco"  placeholder="Digite o preço do produto">
         <br>
         <input type="file" name="foto" id="foto">
         <br>
-        <input type="submit" name="cadastrar" value="Cadastrar">
+        <input type="submit" name="cadastrar" value="Cadastrar Produto">
         <br>
     </form>
 
     <br>
-    <h3> Clientes Cadastrados </h3>
+    <h3> Produtos Cadastrados </h3>
     <table border="1">
         <tr>
             <td>Id</td>
-            <td>Foto</td>
-            <td>Nome</td>
-            <td>CPF</td>
+            <td>FOTO</td>
+            <td>NOME</td>
+            <td>DESCRIÇÃO</td>
+            <td>QUANTIDADE</td>
+            <td>PREÇO</td>
             <td> Editar </td>
             <td> Excluir </td>
         </tr>
         <?php
-            foreach($clientes_banco as $cliente){
+            foreach($produtos_banco as $produto){
                 echo '
                 <tr>
-                    <td> '.$cliente['id'].'  </td>
-                    <td> <img id="foto_perfil" src="'.$cliente['foto'].'">  </td>
-                    <td> '.$cliente['nome'].'  </td>
-                    <td> '.$cliente['cpf'].'  </td>
-                    <td> <a href="editar_cliente.php?id_cliente='.$cliente['id'].'"> Editar </a>  </td>
-                    <td> <a href="./excluir_cliente.php?id_cliente='.$cliente['id'].'"> Excluir </a>  </td>
+                    <td> '.$produto['id'].'  </td>
+                    <td> <img id="foto_perfil" src="'.$produto['foto'].'">  </td>
+                    <td> '.$produto['nome'].'  </td>
+                    <td> '.$produto['descricao'].'  </td>
+                    <td> <a href="editar_produto.php?id_produto='.$produto['id'].'"> Editar </a>  </td>
+                    <td> <a href="./excluir_produto.php?id_produto='.$produto['id'].'"> Excluir </a>  </td>
                 </tr>
                 ';
             }
