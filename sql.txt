@@ -1,0 +1,28 @@
+show databases;
+show tables;
+use crudphp;
+create database crudphp;
+create table cliente(
+	id int not null auto_increment primary key,
+	nome varchar(100) not null,
+	cpf char(11)not null,
+	email varchar(150) not null
+);
+drop table cliente;
+select * from cliente;
+
+alter table cliente
+add column foto varchar(250);
+
+CREATE TABLE produto (
+	id_produto INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(100) NOT NULL,
+	descricao TEXT NOT NULL,
+	quantidade INT NOT NULL,
+	preco_unid DECIMAL(10,2) NOT NULL
+);
+
+select * from produto;
+
+alter table produto
+add column fotoproduto varchar(250);
