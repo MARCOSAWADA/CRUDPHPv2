@@ -1,3 +1,5 @@
+<!-- http://localhost/projeto/CRUDPHPv2/cadastro_fotoproduto_produto.php -->
+
 <?php
 require './Entity/Produto.php';
 
@@ -8,53 +10,22 @@ if(isset($_POST['cadastrar'])){
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
     $quantidade = $_POST['quantidade'];
-    $preco_unid = $_POST['preço'];
+    $preco_unid = $_POST['preco_unid'];
 
 
-    // ____CÓDIGO PARA CADASTRAR FOTOS NO SERVIDOR BANCO DE DADOS___________
+    // ____CÓDIGO PARA CADASTRAR fotoprodutoS NO SERVIDOR BANCO DE DADOS___________
     
-    // print_r($_FILES);
-    $arquivo = $_FILES['foto'];
-    if ($arquivo['error']) die("Falha ao enviar a foto");
+
+    $arquivo = $_FILES['fotoproduto'];
+    if ($arquivo['error']) die("Falha ao enviar a fotoproduto");
     $pasta = './upload/';
-
-    //( $arquivo['name']; ) ao enviar a imagem, irá mostrar o nome do arquivo da imagem
-    $nome_foto = $arquivo['name'];
-    // echo $nome_foto;
-
-    // ( uniqid(); )ao enviar a imagem, irá mostrar um novo nome do arquivo da imagem
-    $novo_nome = uniqid();
-    echo $novo_nome;
-
-    // $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
-    // echo '<br> SOMENTE A EXTENSÃO' . $extensao;
-
-    // $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
-    // if ($extensao != 'png' && $extensao != 'jpg') die("Falha ao enviar a foto");
-    // echo '<br> SOMENTE A EXTENSÃO' . $extensao;
-
-    // $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
-    // if ($extensao != 'png' && $extensao != 'jpg') die("Falha ao enviar a foto");
-    // $path = $pasta . $novo_nome . '.' . $extensao;
-    // echo '<br>CAMINHO: ' . $path;
-
-    $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
-    if ($extensao != 'png' && $extensao != 'jpg') die("Falha ao enviar a foto");
-    $caminho = $pasta . $novo_nome . '.' . $extensao;
-    $foto = move_uploaded_file($arquivo['tmp_name'], $caminho);
-
-    // ______________________________________________________________________
-
-    $arquivo = $_FILES['foto'];
-    if ($arquivo['error']) die("Falha ao enviar a foto");
-    $pasta = './upload/';
-    $nome_foto = $arquivo['name'];
+    $nome_fotoproduto = $arquivo['name'];
     $novo_nome = uniqid();
 
-    $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
-    if ($extensao != 'png' && $extensao != 'jpg') die("Falha ao enviar a foto");
+    $extensao = strtolower(pathinfo($nome_fotoproduto, PATHINFO_EXTENSION));
+    if ($extensao != 'png' && $extensao != 'jpg') die("Falha ao enviar a fotoproduto");
     $caminho = $pasta . $novo_nome . '.' . $extensao;
-    $foto = move_uploaded_file($arquivo['tmp_name'], $caminho);
+    $fotoproduto = move_uploaded_file($arquivo['tmp_name'], $caminho);
 
 
     // _________________________________________________________________________
@@ -64,7 +35,7 @@ if(isset($_POST['cadastrar'])){
     $produto->descricao = $descricao;
     $produto->quantidade = $quantidade;
     $produto->preco_unid = $preco_unid;
-        $produto->foto = $caminho;
+        $produto->fotoproduto = $caminho;
     $result = $produto->cadastrar();
     if($result){
         echo '<script> alert("Produto cadastrado com sucesso!!") </script>';
@@ -75,13 +46,13 @@ if(isset($_POST['cadastrar'])){
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PrOdUtOs</title>
     <style>
-        #foto_perfil{
+        #fotoproduto_perfil{
             width: 50%;
             border-radius:50%;
         }
@@ -96,9 +67,9 @@ if(isset($_POST['cadastrar'])){
         <br>
         <input type="text" name="quantidade" id="quantidade"  placeholder="Digite a quantidade">
         <br>
-        <input type="text" name="preco_unid" id="preco"  placeholder="Digite o preço do produto">
+        <input type="text" name="preco_unid" id="preco"  placeholder="Digite o preco_unid do produto">
         <br>
-        <input type="file" name="foto" id="foto">
+        <input type="file" name="fotoproduto" id="fotoproduto">
         <br>
         <input type="submit" name="cadastrar" value="Cadastrar Produto">
         <br>
@@ -109,11 +80,11 @@ if(isset($_POST['cadastrar'])){
     <table border="1">
         <tr>
             <td>Id</td>
-            <td>FOTO</td>
+            <td>fotoproduto</td>
             <td>NOME</td>
             <td>DESCRIÇÃO</td>
             <td>QUANTIDADE</td>
-            <td>PREÇO</td>
+            <td>preco_unid</td>
             <td> Editar </td>
             <td> Excluir </td>
         </tr>
@@ -121,21 +92,18 @@ if(isset($_POST['cadastrar'])){
             foreach($produtos_banco as $produto){
                 echo '
                 <tr>
-                    <td> '.$produto['id'].'  </td>
-                    <td> <img id="foto_perfil" src="'.$produto['foto'].'">  </td>
+                    <td> '.$produto['id_produto'].'  </td>
+                    <td> <img id="fotoproduto_perfil" src="'.$produto['fotoproduto'].'">  </td>
                     <td> '.$produto['nome'].'  </td>
                     <td> '.$produto['descricao'].'  </td>
-                    <td> <a href="editar_produto.php?id_produto='.$produto['id'].'"> Editar </a>  </td>
-                    <td> <a href="./excluir_produto.php?id_produto='.$produto['id'].'"> Excluir </a>  </td>
+                    <td> '.$produto['quantidade'].'  </td>
+                    <td> '.$produto['preco_unid'].'  </td>
+                    <td> <a href="editar_produto.php?id_produto='.$produto['id_produto'].'"> Editar </a>  </td>
+                    <td> <a href="./excluir_produto.php?id_produto='.$produto['id_produto'].'"> Excluir </a>  </td>
                 </tr>
                 ';
             }
         ?>
     </table>
-
-
-                        <!-- ESTE ENDEREÇO COPIA DO WORKBENCH -->
-    <!-- <img src="./upload/67bc72ed82a8e.jpg"> -->
-
 </body>
 </html>

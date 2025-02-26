@@ -1,15 +1,15 @@
 <?php
-require './Entity/Cliente.php';
+require './Entity/Produto.php';
 
-$cli = new Cliente('','','');
+$cli = new Produto('','','');
 
-$id = $_GET['id_cliente'];
+$id = $_GET['id_produto'];
 
 $result = $cli->excluir($id);
 
 if($result){
-    echo '<script> alert("Cliente excluido com sucesso!! ")  </script> ';
-    echo "<meta http-equiv='refresh' content='0.5;url=cadastro.php'>";
+    echo '<script> alert("produto excluido com sucesso!! ")  </script> ';
+    echo "<meta http-equiv='refresh' content='0.5;url=cadastro_foto_produto.php'>";
 }
 else{
     echo '<script> alert("Erro ao excluir !! ")  </script> ';

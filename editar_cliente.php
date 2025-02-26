@@ -6,7 +6,7 @@ $id_recebido = $_GET['id_cliente'];
 
 
 if(!isset($id_recebido) or !is_numeric($id_recebido)){
-    header('location: index.php');
+    header('location: index_produto.php');
     exit;
 }
 
@@ -29,6 +29,7 @@ if(isset($_POST['editar'])){
     $result = $cli_editado->atualizar();
     if($result){
         echo '<script> alert("Atualizado com sucesso!!!") </script>' ;
+        echo "<meta http-equiv='refresh' content='0.5;url=cadastro_foto.php'>";
     }else{
         echo 'Erro ao atualizar';
     }
@@ -36,11 +37,11 @@ if(isset($_POST['editar'])){
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>EdItAr ClIeNtE</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>

@@ -8,7 +8,7 @@ class Produto{
     public string $descricao;
     public string $quantidade;
     public string $preco_unid;
-    public string $foto;
+    public string $fotoproduto;
 
     public function cadastrar(){
         $db = new Database('produto');
@@ -18,7 +18,7 @@ class Produto{
                             'descricao' => $this->descricao,
                             'quantidade' => $this->quantidade,
                             'preco_unid' =>$this->preco_unid,
-                            'foto' => $this->foto
+                            'fotoproduto' => $this->fotoproduto
                             ]
                         );
         
@@ -31,10 +31,11 @@ class Produto{
     }
 
     public function atualizar(){
-            return (new Database('produto'))->update('id ='.$this->id,[
+            return (new Database('produto'))->update('id_produto ='.$this->id_produto,[
                 'nome' => $this->nome,
                 'descricao' => $this->descricao,
-                'quantidade' => $this->quantidade
+                'quantidade' => $this->quantidade,
+                'preco_unid' => $this->preco_unid
             ]);
     }
 
@@ -43,13 +44,13 @@ class Produto{
         return (new Database('produto'))->select()->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function buscar_by_id($id){
+    public static function buscar_by_id($id_produto){
         //FETCHALL
-        return (new Database('produto'))->select('id = '. $id)->fetchObject(self::class);
+        return (new Database('produto'))->select('id_produto = '. $id_produto)->fetchObject(self::class);
     }
 
-    public function excluir($id){
-        return (new Database('produto'))->delete('id = '.$id);
+    public function excluir($id_produto){
+        return (new Database('produto'))->delete('id_produto = '.$id_produto);
     }
 
 }

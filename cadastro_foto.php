@@ -1,3 +1,5 @@
+<!-- http://localhost/projeto/CRUDPHPv2/cadastro_foto.php -->
+
 <?php
 require './Entity/Cliente.php';
 
@@ -73,11 +75,11 @@ if(isset($_POST['cadastrar'])){
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ClIeNtE</title>
     <style>
         #foto_perfil{
             width: 50%;
