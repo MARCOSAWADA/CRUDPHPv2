@@ -81,9 +81,11 @@ if(isset($_POST['cadastrar'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClIeNtE</title>
     <style>
-        #foto_perfil{
-            width: 50%;
-            border-radius:50%;
+        #foto_perfil {
+            width: 130px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover; /* Garante que a imagem não distorça */
         }
     </style>
 </head>
